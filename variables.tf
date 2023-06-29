@@ -11,7 +11,7 @@ variable "cidr_block" {
 variable "env" {
   type        = string
   description = "Environment under which this is being deployed."
-  default     = "prod"
+  default     = "dev"
 }
 
 variable "app_name" {
@@ -23,11 +23,6 @@ variable "app_name" {
 variable "ecs_task_execution_role_name" {
   description = "ECS task execution role name."
   default     = "cyberchefEcsTaskExecutionRole"
-}
-
-variable "log_level" {
-  description = "Log level."
-  default     = "DEBUG"
 }
 
 variable "az_count" {
@@ -57,7 +52,7 @@ variable "log_retention_days" {
 
 variable "container_port" {
   description = "Port exposed by the cyberchef container."
-  default     = 8000
+  default     = 8080
 }
 
 variable "app_count" {
@@ -67,8 +62,8 @@ variable "app_count" {
 
 variable "health_check_path" {
   description = "ALB Health Check"
-  default     = "/"
   type        = string
+  default     = "/"
 }
 
 variable "fargate_cpu" {
@@ -88,7 +83,7 @@ variable "cyberchef_domain_name" {
 variable "allowed_cidr_blocks" {
   description = "Allowed list of CIDR Blocks."
   type        = list(string)
-  default     = ["54.213.100.75/32"]
+  default     = []
 }
 
 variable "use_auto_scaling" {

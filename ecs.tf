@@ -1,27 +1,6 @@
-# Creates the following resources:
-# 1. ECS Cluster
-# 2. Template file for ECS task definition
-# 3. The actual ECS task definition using the template from 2.
-# 4. ECS service using the task definition from 3.
 resource "aws_ecs_cluster" "main" {
   name = "cyberchef-cluster"
 }
-
-# data "template_file" "cyberchef" {
-#   template = file("${path.module}/templates/ecs/cyberchef.json.tpl")
-
-#   vars = {
-#     app_image        = var.app_image
-#     host_port        = var.host_port
-#     container_port   = var.container_port
-#     fargate_cpu      = var.fargate_cpu
-#     fargate_memory   = var.fargate_memory
-#     aws_region       = var.aws_region
-#     cloudwatch_group = local.name_prefix
-#     env              = var.env
-#   }
-# }
-
 
 # Cyberchef Service
 resource "aws_ecs_task_definition" "cyberchef" {
@@ -43,7 +22,7 @@ resource "aws_ecs_task_definition" "cyberchef" {
     env              = var.env
     }
   )
-  }
+}
 
 resource "aws_ecs_service" "cyberchef" {
   name                              = "${local.name_prefix}-service"
