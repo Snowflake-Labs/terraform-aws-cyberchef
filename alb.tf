@@ -5,7 +5,7 @@
 
 resource "aws_alb" "main" {
   name            = "${local.name_prefix}-alb"
-  subnets         = aws_subnet.public.*.id
+  subnets         = var.create_vpc == true ? aws_subnet.public.*.id : var.public_subnet_ids
   security_groups = [aws_security_group.alb.id]
 }
 
@@ -13,7 +13,7 @@ resource "aws_alb_target_group" "cyberchef" {
   name        = "${local.name_prefix}-tg"
   port        = 80     # This is 80, even though it doesn't match the listener or the container port.
   protocol    = "HTTP" # This is again HTTP and doesn't match the listener.
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.create_vpc == true ? aws_vpc.main[0].id : var.vpc_id
   target_type = "ip"
 
   health_check {

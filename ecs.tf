@@ -34,7 +34,7 @@ resource "aws_ecs_service" "cyberchef" {
 
   network_configuration {
     security_groups  = [aws_security_group.ecs.id]
-    subnets          = aws_subnet.private.*.id
+    subnets          = var.create_vpc == true ? aws_subnet.private.*.id : var.private_subnet_ids
   }
 
   load_balancer {
