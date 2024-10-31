@@ -2,7 +2,7 @@
 resource "aws_security_group" "alb" {
   name        = "${local.name_prefix}-alb-sg"
   description = "controls access to the ALB to allow HTTP traffic only from the dev vpn."
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.create_vpc == true ? aws_vpc.main[0].id : var.vpc_id
 
   ingress {
     description = "TCP traffic from allowed blocks."
@@ -28,7 +28,7 @@ resource "aws_security_group" "alb" {
 resource "aws_security_group" "ecs" {
   name        = "${local.name_prefix}-ecs-tasks-sg"
   description = "allow inbound access from the ALB only"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.create_vpc == true ? aws_vpc.main[0].id : var.vpc_id
 
   ingress {
     protocol        = "tcp"

@@ -108,3 +108,26 @@ variable "hosted_zone_private" {
   default     = false
 }
 
+variable "create_vpc" {
+  description = "Create new vpc. If fale, must provide vpc_id, public_subnet_ids and private_subnet_ids variables."
+  type        = bool
+  default     = true
+}
+
+variable "vpc_id" {
+  description = "Existing VPC ID if create_vpc is set to false."
+  type        = string
+  default     = null
+}
+
+variable "public_subnet_ids" {
+  description = "Existing public subnet IDs if create_vpc is set to false."
+  type        = list(string)
+  default     = []
+}
+
+variable "private_subnet_ids" {
+  description = "Existing private subnet IDs if create_vpc is set to false."
+  type        = list(string)
+  default     = []
+}
